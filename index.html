@@ -4,12 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turath | تراث</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            height: 100vh;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Carthage_Ruins.jpg/1280px-Carthage_Ruins.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .overlay {
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .arabic {
+            font-size: 2rem;
+            color: #C9A84C;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #f0f0f0;
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background-color: #C0392B;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #a93226;
+        }
+
+        .langue {
+            margin-top: 30px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .langue span {
+            margin: 0 10px;
+            cursor: pointer;
+            color: #C9A84C;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Turath | تراث</h1>
-    <p>Application sur le patrimoine tunisien</p>
-    <!-- page accueil -->
+    <div class="overlay">
+        <h1>Turath</h1>
+        <div class="arabic">تراث</div>
+        <p>Découvrez les sites historiques de la Tunisie sur une carte interactive</p>
+        <a href="map.html" class="btn">Découvrir la carte →</a>
+        <div class="langue">
+            <span>Français</span> | <span>العربية</span>
+        </div>
+    </div>
 
 </body>
 </html>
