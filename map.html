@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turath | Carte</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, serif; }
+
+        header {
+            background-color: #C0392B;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        header h1 { font-size: 1.2rem; }
+
+        .filtres {
+            background: white;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            border-bottom: 2px solid #eee;
+        }
+
+        .filtre-btn {
+            padding: 6px 15px;
+            border: 2px solid #C0392B;
+            border-radius: 20px;
+            background: white;
+            color: #C0392B;
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .filtre-btn.active {
+            background: #C0392B;
+            color: white;
+        }
+
+        .legende {
+            background: white;
+            padding: 8px 15px;
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .legende-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cercle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        #map {
+            height: calc(100vh - 130px);
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html">← Accueil</a>
+        <h1>Turath | تراث</h1>
+        <span></span>
+    </header>
+
+    <div class="filtres">
+        <button class="filtre-btn active" onclick="filtrer('tous', this)">Tous</button>
+        <button class="filtre-btn" onclick="filtrer('carthaginois', this)">Carthaginois</button>
+        <button class="filtre-btn" onclick="filtrer('romain', this)">Romains</button>
+        <button class="filtre-btn" onclick="filtrer('islamique', this)">Islamique</button>
+        <button class="filtre-btn" onclick="filtrer('ottoman', this)">Ottoman</button>
+    </div>
+
+    <div class="legende">
+        <div class="legende-item"><span class="cercle" style="background:purple"></span> Carthaginois</div>
+        <div class="legende-item"><span class="cercle" style="background:orange"></span> Romains</div>
+        <div class="legende-item"><span class="cercle" style="background:green"></span> Islamique</div>
+        <div class="legende-item"><span class="cercle" style="background:blue"></span> Ottoman</div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([34.0, 9.0], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        const sites = [
+            { nom: "Carthage", ville: "Tunis", epoque: "carthaginois", lat: 36.8528, lng: 10.3233 },
+            { nom: "El Jem", ville: "Mahdia", epoque: "romain", lat: 35.2969, lng: 10.7073 },
+            { nom: "Kairouan", ville: "Kairouan", epoque: "islamique", lat: 35.6781, lng: 10.0963 },
+            { nom: "Ribat de Monastir", ville: "Monastir", epoque: "islamique", lat: 35.7697, lng: 10.8262 },
+            { nom: "Dougga", ville: "Béja", epoque: "romain", lat: 36.4228, lng: 9.2194 }
+        ];
+
+        const couleurs = {
+            carthaginois: "purple",
+            romain: "orange",
+            islamique: "green",
+            ottoman: "blue"
+        };
+
+        let marqueurs = [];
+
+        sites.forEach(site => {
+            const marqueur = L.circleMarker([site.lat, site.lng], {
+                radius: 10,
+                fillColor: couleurs[site.epoque],
+                color: "white",
+                weight: 2,
+                fillOpacity: 0.9
+            }).addTo(map);
+
+            marqueur.bindPopup(`
+                <b>${site.nom}</b><br>
+                📍 ${site.ville}<br>
+                🏛️ ${site.epoque}
+            `);
+
+            marqueur.epoque = site.epoque;
+            marqueurs.push(marqueur);
+        });
+
+        function filtrer(epoque, btn) {
+            document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            marqueurs.forEach(m => {
+                if (epoque === 'tous' || m.epoque === epoque) {
+                    m.addTo(map);
+                } else {
+                    map.removeLayer(m);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
