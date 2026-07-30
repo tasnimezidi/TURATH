@@ -78,6 +78,17 @@ background-image: url('images/accueil.jpg');            background-size: cover;
         }
     </style>
 </head>
+<script>
+    function choisirLangue(langue) {
+        localStorage.setItem('langue', langue);
+        window.location.href = 'map.html';
+    }
+
+    // Si pas de langue choisie → français par défaut
+    if (!localStorage.getItem('langue')) {
+        localStorage.setItem('langue', 'fr');
+    }
+</script>
 <body>
 
     <div class="overlay">
@@ -85,8 +96,10 @@ background-image: url('images/accueil.jpg');            background-size: cover;
         <div class="arabic">تراث</div>
         <p>Découvrez les sites historiques de la Tunisie sur une carte interactive</p>
         <a href="map.html" class="btn">Découvrir la carte →</a>
-        <div class="langue">
-            <span>Français</span> | <span>العربية</span> | <span>English</span>
+       <div class="langue">
+                <span onclick="choisirLangue('fr')">Français</span> | 
+                <span onclick="choisirLangue('en')">English</span> | 
+                <span onclick="choisirLangue('ar')">العربية</span>
         </div>
     </div>
 

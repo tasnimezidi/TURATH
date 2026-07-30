@@ -114,11 +114,11 @@
         }).addTo(map);
 
         const sites = [
-            { nom: "Carthage", ville: "Tunis", epoque: "carthaginois", lat: 36.8528, lng: 10.3233 },
-            { nom: "El Jem", ville: "Mahdia", epoque: "romain", lat: 35.2969, lng: 10.7073 },
-            { nom: "Kairouan", ville: "Kairouan", epoque: "islamique", lat: 35.6781, lng: 10.0963 },
+            { nom: "Amphithéâtre de Carthage", ville: "Tunis", epoque: "carthaginois", lat: 36.8528, lng: 10.3233 },
+            { nom: "Amphithéâtre d'El Jem", ville: "Mahdia", epoque: "romain", lat: 35.2969, lng: 10.7073 },
+            { nom: "Grande Mosquée de Kairouan", ville: "Kairouan", epoque: "islamique", lat: 35.6781, lng: 10.0963 },
             { nom: "Ribat de Monastir", ville: "Monastir", epoque: "islamique", lat: 35.7697, lng: 10.8262 },
-            { nom: "Dougga", ville: "Béja", epoque: "romain", lat: 36.4228, lng: 9.2194 }
+            { nom: "Théâtre romain de Dougga", ville: "Béja", epoque: "romain", lat: 36.4228, lng: 9.2194 }
         ];
 
         const couleurs = {
@@ -143,6 +143,9 @@
                 <b>${site.nom}</b><br>
                 📍 ${site.ville}<br>
                 🏛️ ${site.epoque}
+                 <a href="site.html?nom=${encodeURIComponent(site.nom)}" 
+                 style="color:#C0392B; font-weight:bold;">
+                 Voir la fiche →</a>
             `);
 
             marqueur.epoque = site.epoque;
@@ -164,4 +167,4 @@
     </script>
 
 </body>
-</html>
+</html> 
