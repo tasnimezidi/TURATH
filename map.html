@@ -83,43 +83,139 @@
 <body>
 
     <header>
-        <a href="index.html">← Accueil</a>
-        <h1>Turath | تراث</h1>
-        <span></span>
-    </header>
+    <a href="index.html" id="btn-accueil">← Accueil</a>
+    <h1>Turath | تراث</h1>
+    <span></span>
+</header> 
 
-    <div class="filtres">
-        <button class="filtre-btn active" onclick="filtrer('tous', this)">Tous</button>
-        <button class="filtre-btn" onclick="filtrer('carthaginois', this)">Carthaginois</button>
-        <button class="filtre-btn" onclick="filtrer('romain', this)">Romains</button>
-        <button class="filtre-btn" onclick="filtrer('islamique', this)">Islamique</button>
-        <button class="filtre-btn" onclick="filtrer('ottoman', this)">Ottoman</button>
-    </div>
+ <div class="filtres">
+    <button class="filtre-btn active" id="btn-tous" onclick="filtrer('tous', this)">Tous</button>
+    <button class="filtre-btn" id="btn-carthaginois" onclick="filtrer('carthaginois', this)">Carthaginois</button>
+    <button class="filtre-btn" id="btn-romain" onclick="filtrer('romain', this)">Romains</button>
+    <button class="filtre-btn" id="btn-islamique" onclick="filtrer('islamique', this)">Islamique</button>
+    <button class="filtre-btn" id="btn-ottoman" onclick="filtrer('ottoman', this)">Ottoman</button>
+</div>
 
-    <div class="legende">
-        <div class="legende-item"><span class="cercle" style="background:purple"></span> Carthaginois</div>
-        <div class="legende-item"><span class="cercle" style="background:orange"></span> Romains</div>
-        <div class="legende-item"><span class="cercle" style="background:green"></span> Islamique</div>
-        <div class="legende-item"><span class="cercle" style="background:blue"></span> Ottoman</div>
-    </div>
+<div class="legende">
+    <div class="legende-item"><span class="cercle" style="background:purple"></span> <span id="leg-carthaginois">Carthaginois</span></div>
+    <div class="legende-item"><span class="cercle" style="background:orange"></span> <span id="leg-romain">Romains</span></div>
+    <div class="legende-item"><span class="cercle" style="background:green"></span> <span id="leg-islamique">Islamique</span></div>
+    <div class="legende-item"><span class="cercle" style="background:blue"></span> <span id="leg-ottoman">Ottoman</span></div>
+</div>
 
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const map = L.map('map').setView([34.0, 9.0], 6);
+        // Lire la langue
+const langue = localStorage.getItem('langue') || 'fr';
+
+// Traductions des filtres
+const traductions = {
+    fr: {
+        tous: 'Tous',
+        carthaginois: 'Carthaginois',
+        romain: 'Romains',
+        islamique: 'Islamique',
+        ottoman: 'Ottoman',
+        voirFiche: 'Voir la fiche →'
+    },
+    en: {
+        tous: 'All',
+        carthaginois: 'Carthaginian',
+        romain: 'Roman',
+        islamique: 'Islamic',
+        ottoman: 'Ottoman',
+        voirFiche: 'See details →'
+    },
+    ar: {
+        tous: 'الكل',
+        carthaginois: 'قرطاجي',
+        romain: 'روماني',
+        islamique: 'إسلامي',
+        ottoman: 'عثماني',
+        voirFiche: 'عرض التفاصيل ←'
+    }
+};
+
+const t = traductions[langue] || traductions['fr'];
+ 
+// Traduire header et légende
+document.getElementById('btn-accueil').textContent = langue === 'ar' ? '→ الرئيسية' : langue === 'en' ? '← Home' : '← Accueil';
+document.getElementById('btn-tous').textContent = t.tous;
+document.getElementById('btn-carthaginois').textContent = t.carthaginois;
+document.getElementById('btn-romain').textContent = t.romain;
+document.getElementById('btn-islamique').textContent = t.islamique;
+document.getElementById('btn-ottoman').textContent = t.ottoman;
+document.getElementById('leg-carthaginois').textContent = t.carthaginois;
+document.getElementById('leg-romain').textContent = t.romain;
+document.getElementById('leg-islamique').textContent = t.islamique;
+document.getElementById('leg-ottoman').textContent = t.ottoman;
+
+// Si arabe → direction droite à gauche
+if (langue === 'ar') {
+    document.body.style.direction = 'rtl';
+}
+
+// Traduire les boutons filtres
+document.querySelector('[onclick="filtrer(\'tous\', this)"]').textContent = t.tous;
+document.querySelector('[onclick="filtrer(\'carthaginois\', this)"]').textContent = t.carthaginois;
+document.querySelector('[onclick="filtrer(\'romain\', this)"]').textContent = t.romain;
+document.querySelector('[onclick="filtrer(\'islamique\', this)"]').textContent = t.islamique;
+document.querySelector('[onclick="filtrer(\'ottoman\', this)"]').textContent = t.ottoman;
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        const sites = [
-            { nom: "Amphithéâtre de Carthage", ville: "Tunis", epoque: "carthaginois", lat: 36.8528, lng: 10.3233 },
-            { nom: "Amphithéâtre d'El Jem", ville: "Mahdia", epoque: "romain", lat: 35.2969, lng: 10.7073 },
-            { nom: "Grande Mosquée de Kairouan", ville: "Kairouan", epoque: "islamique", lat: 35.6781, lng: 10.0963 },
-            { nom: "Ribat de Monastir", ville: "Monastir", epoque: "islamique", lat: 35.7697, lng: 10.8262 },
-            { nom: "Théâtre romain de Dougga", ville: "Béja", epoque: "romain", lat: 36.4228, lng: 9.2194 }
-        ];
+      const sites = [
+    {
+        nom: "Amphithéâtre de Carthage",
+        nomAr: "مدرج قرطاج",
+        nomEn: "Carthage Amphitheatre",
+        ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
+        epoque: "carthaginois",
+        epoqueLabel: "Carthaginois", epoqueLabelAr: "قرطاجي", epoqueLabelEn: "Carthaginian",
+        lat: 36.8528, lng: 10.3233
+    },
+    {
+        nom: "Amphithéâtre d'El Jem",
+        nomAr: "مدرج الجم",
+        nomEn: "El Jem Amphitheatre",
+        ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
+        epoque: "romain",
+        epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",
+        lat: 35.2969, lng: 10.7073
+    },
+    {
+        nom: "Grande Mosquée de Kairouan",
+        nomAr: "جامع القيروان الكبير",
+        nomEn: "Great Mosque of Kairouan",
+        ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
+        epoque: "islamique",
+        epoqueLabel: "Islamique", epoqueLabelAr: "إسلامي", epoqueLabelEn: "Islamic",
+        lat: 35.6781, lng: 10.0963
+    },
+    {
+        nom: "Ribat de Monastir",
+        nomAr: "رباط المنستير",
+        nomEn: "Ribat of Monastir",
+        ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
+        epoque: "islamique",
+        epoqueLabel: "Islamique", epoqueLabelAr: "إسلامي", epoqueLabelEn: "Islamic",
+        lat: 35.7697, lng: 10.8262
+    },
+    {
+        nom: "Théâtre romain de Dougga",
+        nomAr: "المسرح الروماني بدقة",
+        nomEn: "Roman Theatre of Dougga",
+        ville: "Béja", villeAr: "باجة", villeEn: "Béja",
+        epoque: "romain",
+        epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",
+        lat: 36.4228, lng: 9.2194
+    }
+];
 
         const couleurs = {
             carthaginois: "purple",
@@ -139,15 +235,18 @@
                 fillOpacity: 0.9
             }).addTo(map);
 
-            marqueur.bindPopup(`
-                <b>${site.nom}</b><br>
-                📍 ${site.ville}<br>
-                🏛️ ${site.epoque}
-                 <a href="site.html?nom=${encodeURIComponent(site.nom)}" 
-                 style="color:#C0392B; font-weight:bold;">
-                 Voir la fiche →</a>
-            `);
+const nomAffiche = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+const villeAffiche = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
+const epoqueAffiche = langue === 'ar' ? site.epoqueLabelAr : langue === 'en' ? site.epoqueLabelEn : site.epoqueLabel;
 
+marqueur.bindPopup(`
+    <b>${nomAffiche}</b><br>
+    📍 ${villeAffiche}<br>
+    🏛️ ${epoqueAffiche}<br>
+    <a href="site.html?nom=${encodeURIComponent(site.nom)}" 
+    style="color:#C0392B; font-weight:bold;">
+    ${t.voirFiche}</a>
+`);
             marqueur.epoque = site.epoque;
             marqueurs.push(marqueur);
         });

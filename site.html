@@ -106,7 +106,7 @@
 <body>
 
     <header>
-        <a href="map.html">← Retour</a>
+        <a href="map.html" id="btn-retour">← Retour</a>
         <h1>Turath | تراث</h1>
         <span></span>
     </header>
@@ -131,131 +131,146 @@
         </button>
     </div>
 
-   <script>
-    const sites = [
-        {
-            nom: "Amphithéâtre de Carthage",
-            nomArabe: "مدرج قرطاج",
-            nomEn: "Carthage Amphitheatre",
-            ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
-            epoque: "Carthaginois", epoqueAr: "قرطاجي", epoqueEn: "Carthaginian",
-            siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
-            photo: "images/carthage.jpg",
-            description: "L'amphithéâtre de Carthage est un vestige romain situé dans la ville antique de Carthage. Construit au IIe siècle, il pouvait accueillir jusqu'à 36 000 spectateurs.",
-            descriptionArabe: "مدرج قرطاج أثر روماني يعود للقرن الثاني الميلادي، كان يستوعب 36 ألف متفرج لمشاهدة العروض ومبارزات المصارعين.",
-            descriptionEn: "The Carthage Amphitheatre is a Roman ruin located in the ancient city of Carthage. Built in the 2nd century, it could accommodate up to 36,000 spectators."
-        },
-        {
-            nom: "Amphithéâtre d'El Jem",
-            nomArabe: "مدرج الجم",
-            nomEn: "El Jem Amphitheatre",
-            ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
-            epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
-            siecle: "IIIe siècle", siecleAr: "القرن الثالث", siecleEn: "3rd century",
-            photo: "images/eljem.jpg",
-            description: "L'amphithéâtre d'El Jem est l'un des mieux conservés au monde. Construit au IIIe siècle, il pouvait accueillir 35 000 spectateurs. Classé UNESCO depuis 1979.",
-            descriptionArabe: "مدرج الجم من أفضل المدرجات المحفوظة في العالم، بني في القرن الثالث الميلادي واستوعب 35 ألف متفرج. مصنف ضمن تراث اليونسكو منذ 1979.",
-            descriptionEn: "The El Jem Amphitheatre is one of the best preserved in the world. Built in the 3rd century, it could hold 35,000 spectators. UNESCO listed since 1979."
-        },
-        {
-            nom: "Grande Mosquée de Kairouan",
-            nomArabe: "جامع القيروان الكبير",
-            nomEn: "Great Mosque of Kairouan",
-            ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
-            epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
-            siecle: "VIIe siècle", siecleAr: "القرن السابع", siecleEn: "7th century",
-            photo: "images/kairouan.jpg",
-            description: "La Grande Mosquée de Kairouan est l'une des plus anciennes mosquées d'Afrique, fondée en 670 ap. J.-C. par Uqba ibn Nafi. Quatrième lieu saint de l'Islam.",
-            descriptionArabe: "جامع القيروان الكبير من أعرق المساجد في أفريقيا، أسسه عقبة بن نافع عام 670م، ويُعدّ رابع أقدس مكان في الإسلام.",
-            descriptionEn: "The Great Mosque of Kairouan is one of the oldest mosques in Africa, founded in 670 AD by Uqba ibn Nafi. It is the fourth holiest site in Islam."
-        },
-        {
-            nom: "Ribat de Monastir",
-            nomArabe: "رباط المنستير",
-            nomEn: "Ribat of Monastir",
-            ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
-            epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
-            siecle: "VIIIe siècle", siecleAr: "القرن الثامن", siecleEn: "8th century",
-            photo: "images/ribat.jpg",
-            description: "Le Ribat de Monastir est l'un des plus anciens forts musulmans du Maghreb, construit au VIIIe siècle pour protéger la côte tunisienne des invasions.",
-            descriptionArabe: "رباط المنستير من أقدم الحصون الإسلامية في المغرب العربي، بني في القرن الثامن الميلادي لحماية الساحل التونسي من الغزوات.",
-            descriptionEn: "The Ribat of Monastir is one of the oldest Muslim forts in the Maghreb, built in the 8th century to protect the Tunisian coast from invasions."
-        },
-        {
-            nom: "Théâtre romain de Dougga",
-            nomArabe: "المسرح الروماني بدقة",
-            nomEn: "Roman Theatre of Dougga",
-            ville: "Béja", villeAr: "باجة", villeEn: "Béja",
-            epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
-            siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
-            photo: "images/dougga.jpg",
-            description: "Le théâtre romain de Dougga est l'un des mieux conservés d'Afrique du Nord. Construit au IIe siècle, il pouvait accueillir 3 500 spectateurs. Dougga est classée UNESCO.",
-            descriptionArabe: "المسرح الروماني بدقة من أجمل المسارح الرومانية في شمال أفريقيا، بني في القرن الثاني الميلادي واستوعب 3500 متفرج. دقة مصنفة ضمن تراث اليونسكو.",
-            descriptionEn: "The Roman Theatre of Dougga is one of the best preserved in North Africa. Built in the 2nd century, it held 3,500 spectators. Dougga is UNESCO listed."
+    <script>
+        const sites = [
+            {
+                nom: "Amphithéâtre de Carthage",
+                nomArabe: "مدرج قرطاج",
+                nomEn: "Carthage Amphitheatre",
+                ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
+                epoque: "Carthaginois", epoqueAr: "قرطاجي", epoqueEn: "Carthaginian",
+                siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
+                photo: "images/carthage.jpg",
+                photoPosition: "center center",
+                description: "L'amphithéâtre de Carthage est un vestige romain situé dans la ville antique de Carthage. Construit au IIe siècle, il pouvait accueillir jusqu'à 36 000 spectateurs.",
+                descriptionArabe: "مدرج قرطاج أثر روماني يعود للقرن الثاني الميلادي، كان يستوعب 36 ألف متفرج لمشاهدة العروض ومبارزات المصارعين.",
+                descriptionEn: "The Carthage Amphitheatre is a Roman ruin located in the ancient city of Carthage. Built in the 2nd century, it could accommodate up to 36,000 spectators."
+            },
+            {
+                nom: "Amphithéâtre d'El Jem",
+                nomArabe: "مدرج الجم",
+                nomEn: "El Jem Amphitheatre",
+                ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
+                epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
+                siecle: "IIIe siècle", siecleAr: "القرن الثالث", siecleEn: "3rd century",
+                photo: "images/jem.jpg",
+                photoPosition: "center center",
+                description: "L'amphithéâtre d'El Jem est l'un des mieux conservés au monde. Construit au IIIe siècle, il pouvait accueillir 35 000 spectateurs. Classé UNESCO depuis 1979.",
+                descriptionArabe: "مدرج الجم من أفضل المدرجات المحفوظة في العالم، بني في القرن الثالث الميلادي واستوعب 35 ألف متفرج. مصنف ضمن تراث اليونسكو منذ 1979.",
+                descriptionEn: "The El Jem Amphitheatre is one of the best preserved in the world. Built in the 3rd century, it could hold 35,000 spectators. UNESCO listed since 1979."
+            },
+            {
+                nom: "Grande Mosquée de Kairouan",
+                nomArabe: "جامع القيروان الكبير",
+                nomEn: "Great Mosque of Kairouan",
+                ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
+                epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
+                siecle: "VIIe siècle", siecleAr: "القرن السابع", siecleEn: "7th century",
+                photo: "images/kairouan.jpg",
+                photoPosition: "center top",
+                description: "La Grande Mosquée de Kairouan est l'une des plus anciennes mosquées d'Afrique, fondée en 670 ap. J.-C. par Uqba ibn Nafi. Quatrième lieu saint de l'Islam.",
+                descriptionArabe: "جامع القيروان الكبير من أعرق المساجد في أفريقيا، أسسه عقبة بن نافع عام 670م، ويُعدّ رابع أقدس مكان في الإسلام.",
+                descriptionEn: "The Great Mosque of Kairouan is one of the oldest mosques in Africa, founded in 670 AD by Uqba ibn Nafi. It is the fourth holiest site in Islam."
+            },
+            {
+                nom: "Ribat de Monastir",
+                nomArabe: "رباط المنستير",
+                nomEn: "Ribat of Monastir",
+                ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
+                epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
+                siecle: "VIIIe siècle", siecleAr: "القرن الثامن", siecleEn: "8th century",
+                photo: "images/Ribat.jpg",
+                photoPosition: "center center",
+                description: "Le Ribat de Monastir est l'un des plus anciens forts musulmans du Maghreb, construit au VIIIe siècle pour protéger la côte tunisienne des invasions.",
+                descriptionArabe: "رباط المنستير من أقدم الحصون الإسلامية في المغرب العربي، بني في القرن الثامن الميلادي لحماية الساحل التونسي من الغزوات.",
+                descriptionEn: "The Ribat of Monastir is one of the oldest Muslim forts in the Maghreb, built in the 8th century to protect the Tunisian coast from invasions."
+            },
+            {
+                nom: "Théâtre romain de Dougga",
+                nomArabe: "المسرح الروماني بدقة",
+                nomEn: "Roman Theatre of Dougga",
+                ville: "Béja", villeAr: "باجة", villeEn: "Béja",
+                epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
+                siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
+                photo: "images/dougga.jpeg",
+                photoPosition: "center bottom",
+                description: "Le théâtre romain de Dougga est l'un des mieux conservés d'Afrique du Nord. Construit au IIe siècle, il pouvait accueillir 3 500 spectateurs. Dougga est classée UNESCO.",
+                descriptionArabe: "المسرح الروماني بدقة من أجمل المسارح الرومانية في شمال أفريقيا، بني في القرن الثاني الميلادي واستوعب 3500 متفرج. دقة مصنفة ضمن تراث اليونسكو.",
+                descriptionEn: "The Roman Theatre of Dougga is one of the best preserved in North Africa. Built in the 2nd century, it held 3,500 spectators. Dougga is UNESCO listed."
+            }
+        ];
+
+        // Lire langue et nom
+        const langue = localStorage.getItem('langue') || 'fr';
+        // traduiree retour
+const retour = document.getElementById('btn-retour');
+if (langue === 'ar') {
+    retour.textContent = 'رجوع →';
+} else if (langue === 'en') {
+    retour.textContent = '← Back';
+} else {
+    retour.textContent = '← Retour';
+}
+        const params = new URLSearchParams(window.location.search);
+        const nomSite = params.get('nom');
+
+        // Trouver le monument
+        const site = sites.find(s => s.nom === nomSite);
+
+        // Afficher les infos selon la langue
+        if (site) {
+            document.getElementById('photo').src = site.photo;
+            document.getElementById('photo').style.objectPosition = site.photoPosition;
+
+            if (langue === 'ar') {
+                document.getElementById('nom').textContent = site.nomArabe;
+                document.getElementById('description').textContent = site.descriptionArabe;
+                document.getElementById('ville').textContent = '📍 ' + site.villeAr;
+                document.getElementById('epoque').textContent = '🏛️ ' + site.epoqueAr;
+                document.getElementById('siecle').textContent = '📅 ' + site.siecleAr;
+                document.body.style.direction = 'rtl';
+            } else if (langue === 'en') {
+                document.getElementById('nom').textContent = site.nomEn;
+                document.getElementById('description').textContent = site.descriptionEn;
+                document.getElementById('ville').textContent = '📍 ' + site.villeEn;
+                document.getElementById('epoque').textContent = '🏛️ ' + site.epoqueEn;
+                document.getElementById('siecle').textContent = '📅 ' + site.siecleEn;
+            } else {
+                document.getElementById('nom').textContent = site.nom;
+                document.getElementById('description').textContent = site.description;
+                document.getElementById('ville').textContent = '📍 ' + site.ville;
+                document.getElementById('epoque').textContent = '🏛️ ' + site.epoque;
+                document.getElementById('siecle').textContent = '📅 ' + site.siecle;
+            }
+
+            document.title = 'Turath | ' + site.nom;
         }
-    ];
 
-    // Lire langue et nom
-    const langue = localStorage.getItem('langue') || 'fr';
-    const params = new URLSearchParams(window.location.search);
-    const nomSite = params.get('nom');
+        // Favori
+        function toggleFavori() {
+            const btn = document.getElementById('btn-favori');
+            const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+            const index = favoris.indexOf(nomSite);
 
-    // Trouver le monument
-    const site = sites.find(s => s.nom === nomSite);
-
-    // Afficher les infos selon la langue
-    if (site) {
-        document.getElementById('photo').src = site.photo;
-
-        if (langue === 'ar') {
-            document.getElementById('nom').textContent = site.nomArabe;
-            document.getElementById('description').textContent = site.descriptionArabe;
-            document.getElementById('ville').textContent = '📍 ' + site.villeAr;
-            document.getElementById('epoque').textContent = '🏛️ ' + site.epoqueAr;
-            document.getElementById('siecle').textContent = '📅 ' + site.siecleAr;
-            document.body.style.direction = 'rtl';
-        } else if (langue === 'en') {
-            document.getElementById('nom').textContent = site.nomEn;
-            document.getElementById('description').textContent = site.descriptionEn;
-            document.getElementById('ville').textContent = '📍 ' + site.villeEn;
-            document.getElementById('epoque').textContent = '🏛️ ' + site.epoqueEn;
-            document.getElementById('siecle').textContent = '📅 ' + site.siecleEn;
-        } else {
-            document.getElementById('nom').textContent = site.nom;
-            document.getElementById('description').textContent = site.description;
-            document.getElementById('ville').textContent = '📍 ' + site.ville;
-            document.getElementById('epoque').textContent = '🏛️ ' + site.epoque;
-            document.getElementById('siecle').textContent = '📅 ' + site.siecle;
+            if (index === -1) {
+                favoris.push(nomSite);
+                btn.textContent = '❤️ Ajouté aux favoris';
+                btn.classList.add('active');
+            } else {
+                favoris.splice(index, 1);
+                btn.textContent = '❤️ Ajouter aux favoris';
+                btn.classList.remove('active');
+            }
+            localStorage.setItem('favoris', JSON.stringify(favoris));
         }
 
-        document.title = 'Turath | ' + site.nom;
-    }
-
-    // Favori
-    function toggleFavori() {
-        const btn = document.getElementById('btn-favori');
+        // Vérifier si déjà en favori
         const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
-        const index = favoris.indexOf(nomSite);
-
-        if (index === -1) {
-            favoris.push(nomSite);
-            btn.textContent = '❤️ Ajouté aux favoris';
-            btn.classList.add('active');
-        } else {
-            favoris.splice(index, 1);
-            btn.textContent = '❤️ Ajouter aux favoris';
-            btn.classList.remove('active');
+        if (favoris.includes(nomSite)) {
+            document.getElementById('btn-favori').textContent = '❤️ Ajouté aux favoris';
+            document.getElementById('btn-favori').classList.add('active');
         }
-        localStorage.setItem('favoris', JSON.stringify(favoris));
-    }
-
-    // Vérifier si déjà en favori
-    const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
-    if (favoris.includes(nomSite)) {
-        document.getElementById('btn-favori').textContent = '❤️ Ajouté aux favoris';
-        document.getElementById('btn-favori').classList.add('active');
-    }
-</script>
+    </script>
 
 </body>
 </html>

@@ -79,15 +79,14 @@ background-image: url('images/accueil.jpg');            background-size: cover;
     </style>
 </head>
 <script>
-    function choisirLangue(langue) {
-        localStorage.setItem('langue', langue);
-        window.location.href = 'map.html';
-    }
+   function choisirLangue(langue) {
+    localStorage.setItem('langue', langue);
+    document.querySelectorAll('.langue span').forEach(s => s.style.fontWeight = 'normal');
+    event.target.style.fontWeight = 'bold';
+}
 
-    // Si pas de langue choisie → français par défaut
-    if (!localStorage.getItem('langue')) {
-        localStorage.setItem('langue', 'fr');
-    }
+// Au chargement → toujours remettre français par défaut
+localStorage.setItem('langue', 'fr');
 </script>
 <body>
 
