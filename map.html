@@ -78,14 +78,59 @@
             height: calc(100vh - 130px);
             width: 100%;
         }
+
+        .recherche {
+    position: relative;
+    padding: 10px 15px;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+#input-recherche {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #eee;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+}
+
+#input-recherche:focus {
+    border-color: #C0392B;
+}
+
+#suggestions {
+    position: absolute;
+    top: 55px;
+    left: 15px;
+    right: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.95rem;
+}
+
+.suggestion-item:hover {
+    background: #f9f9f9;
+    color: #C0392B;
+}
     </style>
 </head>
 <body>
 
     <header>
+        
     <a href="index.html" id="btn-accueil">← Accueil</a>
     <h1>Turath | تراث</h1>
-    <span></span>
+    <a href="favoris.html" id="btn-favoris">❤️</a>
+    
 </header> 
 
  <div class="filtres">
@@ -101,6 +146,16 @@
     <div class="legende-item"><span class="cercle" style="background:orange"></span> <span id="leg-romain">Romains</span></div>
     <div class="legende-item"><span class="cercle" style="background:green"></span> <span id="leg-islamique">Islamique</span></div>
     <div class="legende-item"><span class="cercle" style="background:blue"></span> <span id="leg-ottoman">Ottoman</span></div>
+</div>
+
+<div class="recherche">
+    <input 
+        type="text" 
+        id="input-recherche" 
+        placeholder="🔍 Rechercher un monument..."
+        oninput="rechercherMonument()"
+    />
+    <div id="suggestions"></div>
 </div>
 
     <div id="map"></div>
@@ -263,6 +318,54 @@ marqueur.bindPopup(`
                 }
             });
         }
+
+        function rechercherMonument() {
+    const input = document.getElementById('input-recherche').value.toLowerCase();
+    const suggestions = document.getElementById('suggestions');
+    suggestions.innerHTML = '';
+
+    if (input.length < 2) return;
+
+    const resultats = sites.filter(site => {
+        const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+        return nom.toLowerCase().includes(input);
+    });
+
+    resultats.forEach(site => {
+        const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+        const ville = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
+
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.textContent = nom + ' — ' + ville;
+
+        div.onclick = () => {
+            // Zoomer sur le monument
+            map.setView([site.lat, site.lng], 13);
+
+            // Ouvrir le popup du marqueur
+            marqueurs.forEach(m => {
+                if (m.epoque === site.epoque && 
+                    m.getLatLng().lat === site.lat) {
+                    m.openPopup();
+                }
+            });
+
+            // Vider la barre
+            document.getElementById('input-recherche').value = nom;
+            suggestions.innerHTML = '';
+        };
+
+        suggestions.appendChild(div);
+    });
+}
+
+// Fermer suggestions si on clique ailleurs
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.recherche')) {
+        document.getElementById('suggestions').innerHTML = '';
+    }
+});
     </script>
 
 </body>

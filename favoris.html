@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turath | Favoris</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, serif; background: #f9f9f9; }
+
+        header {
+            background-color: #C0392B;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        header h1 {
+            font-size: 1.1rem;
+            flex: 1;
+            text-align: center;
+        }
+
+        .contenu {
+            padding: 20px;
+        }
+
+        .titre-page {
+            font-size: 1.5rem;
+            color: #2c2c2c;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .vide {
+            text-align: center;
+            color: #999;
+            margin-top: 50px;
+            font-size: 1rem;
+        }
+
+        .vide span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .carte-monument {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+        }
+
+        .carte-monument img {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .carte-info {
+            padding: 10px 15px;
+            flex: 1;
+        }
+
+        .carte-nom {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #2c2c2c;
+            margin-bottom: 5px;
+        }
+
+        .carte-ville {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .carte-supprimer {
+            padding: 10px 15px;
+            color: #C0392B;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        .btn-carte {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background: #C0392B;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="map.html" id="btn-retour">← Retour</a>
+        <h1>Turath | تراث</h1>
+        <span></span>
+    </header>
+
+    <div class="contenu">
+        <div class="titre-page" id="titre-page">❤️ Mes Favoris</div>
+        <div id="liste-favoris"></div>
+        <a href="map.html" class="btn-carte" id="btn-carte">🗺️ Voir la carte</a>
+    </div>
+
+    <script>
+        const langue = localStorage.getItem('langue') || 'fr';
+
+        // Traductions
+        const t = {
+            fr: { titre: '❤️ Mes Favoris', retour: '← Retour', carte: '🗺️ Voir la carte', vide: 'Aucun favori pour le moment', videDesc: 'Explore la carte et ajoute des monuments !', supprimer: '🗑️' },
+            en: { titre: '❤️ My Favourites', retour: '← Back', carte: '🗺️ See the map', vide: 'No favourites yet', videDesc: 'Explore the map and add monuments!', supprimer: '🗑️' },
+            ar: { titre: '❤️ المفضلة', retour: 'رجوع →', carte: '🗺️ عرض الخريطة', vide: 'لا توجد مفضلة بعد', videDesc: 'استكشف الخريطة وأضف المعالم!', supprimer: '🗑️' }
+        }[langue] || { titre: '❤️ Mes Favoris', retour: '← Retour', carte: '🗺️ Voir la carte', vide: 'Aucun favori', videDesc: 'Explore la carte !', supprimer: '🗑️' };
+
+        // Appliquer traductions
+        document.getElementById('titre-page').textContent = t.titre;
+        document.getElementById('btn-retour').textContent = t.retour;
+        document.getElementById('btn-carte').textContent = t.carte;
+        if (langue === 'ar') document.body.style.direction = 'rtl';
+
+        // Données des monuments
+        const sites = [
+            { nom: "Amphithéâtre de Carthage", nomAr: "مدرج قرطاج", nomEn: "Carthage Amphitheatre", ville: "Tunis", villeAr: "تونس", villeEn: "Tunis", photo: "images/carthage.jpg" },
+            { nom: "Amphithéâtre d'El Jem", nomAr: "مدرج الجم", nomEn: "El Jem Amphitheatre", ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia", photo: "images/jem.jpg" },
+            { nom: "Grande Mosquée de Kairouan", nomAr: "جامع القيروان الكبير", nomEn: "Great Mosque of Kairouan", ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan", photo: "images/kairouan.jpg" },
+            { nom: "Ribat de Monastir", nomAr: "رباط المنستير", nomEn: "Ribat of Monastir", ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir", photo: "images/Ribat.jpg" },
+            { nom: "Théâtre romain de Dougga", nomAr: "المسرح الروماني بدقة", nomEn: "Roman Theatre of Dougga", ville: "Béja", villeAr: "باجة", villeEn: "Béja", photo: "images/dougga.jpeg" }
+        ];
+
+        // Afficher les favoris
+        const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+        const liste = document.getElementById('liste-favoris');
+
+        if (favoris.length === 0) {
+            liste.innerHTML = `
+                <div class="vide">
+                    <span>💔</span>
+                    ${t.vide}<br>
+                    <small>${t.videDesc}</small>
+                </div>
+            `;
+        } else {
+            favoris.forEach(nomFavori => {
+                const site = sites.find(s => s.nom === nomFavori);
+                if (!site) return;
+
+                const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+                const ville = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
+
+                const div = document.createElement('div');
+                div.className = 'carte-monument';
+                div.innerHTML = `
+                    <img src="${site.photo}" alt="${nom}"/>
+                    <div class="carte-info">
+                        <div class="carte-nom">${nom}</div>
+                        <div class="carte-ville">📍 ${ville}</div>
+                    </div>
+                    <div class="carte-supprimer" onclick="supprimerFavori('${site.nom}', this)">🗑️</div>
+                `;
+
+                div.onclick = (e) => {
+                    if (!e.target.classList.contains('carte-supprimer')) {
+                        window.location.href = `site.html?nom=${encodeURIComponent(site.nom)}`;
+                    }
+                };
+
+                liste.appendChild(div);
+            });
+        }
+
+        function supprimerFavori(nom, el) {
+            const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+            const index = favoris.indexOf(nom);
+            if (index !== -1) favoris.splice(index, 1);
+            localStorage.setItem('favoris', JSON.stringify(favoris));
+            el.closest('.carte-monument').remove();
+
+            if (favoris.length === 0) {
+                liste.innerHTML = `
+                    <div class="vide">
+                        <span>💔</span>
+                        ${t.vide}<br>
+                        <small>${t.videDesc}</small>
+                    </div>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>

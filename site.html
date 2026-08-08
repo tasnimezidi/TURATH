@@ -106,9 +106,11 @@
 <body>
 
     <header>
+        
         <a href="map.html" id="btn-retour">← Retour</a>
         <h1>Turath | تراث</h1>
-        <span></span>
+        <a href="favoris.html" id="btn-favoris">❤️</a>
+        
     </header>
 
     <img id="photo" src="" alt="photo du monument"/>
@@ -246,30 +248,36 @@ if (langue === 'ar') {
             document.title = 'Turath | ' + site.nom;
         }
 
-        // Favori
-        function toggleFavori() {
-            const btn = document.getElementById('btn-favori');
-            const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
-            const index = favoris.indexOf(nomSite);
+      // Textes favori selon langue
+const txtAjouter = langue === 'ar' ? '❤️ أضف إلى المفضلة' : langue === 'en' ? '❤️ Add to favourites' : '❤️ Ajouter aux favoris';
+const txtAjoute = langue === 'ar' ? '❤️ تمت الإضافة' : langue === 'en' ? '❤️ Added to favourites' : '❤️ Ajouté aux favoris';
 
-            if (index === -1) {
-                favoris.push(nomSite);
-                btn.textContent = '❤️ Ajouté aux favoris';
-                btn.classList.add('active');
-            } else {
-                favoris.splice(index, 1);
-                btn.textContent = '❤️ Ajouter aux favoris';
-                btn.classList.remove('active');
-            }
-            localStorage.setItem('favoris', JSON.stringify(favoris));
-        }
+// Favori
+function toggleFavori() {
+    const btn = document.getElementById('btn-favori');
+    const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+    const index = favoris.indexOf(nomSite);
 
-        // Vérifier si déjà en favori
-        const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
-        if (favoris.includes(nomSite)) {
-            document.getElementById('btn-favori').textContent = '❤️ Ajouté aux favoris';
-            document.getElementById('btn-favori').classList.add('active');
-        }
+    if (index === -1) {
+        favoris.push(nomSite);
+        btn.textContent = txtAjoute;
+        btn.classList.add('active');
+    } else {
+        favoris.splice(index, 1);
+        btn.textContent = txtAjouter;
+        btn.classList.remove('active');
+    }
+    localStorage.setItem('favoris', JSON.stringify(favoris));
+}
+
+// Vérifier si déjà fl favori
+const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+if (favoris.includes(nomSite)) {
+    document.getElementById('btn-favori').textContent = txtAjoute;
+    document.getElementById('btn-favori').classList.add('active');
+} else {
+    document.getElementById('btn-favori').textContent = txtAjouter;
+} 
     </script>
 
 </body>
