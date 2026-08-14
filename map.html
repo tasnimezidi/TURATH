@@ -80,197 +80,295 @@
         }
 
         .recherche {
-    position: relative;
-    padding: 10px 15px;
+            position: relative;
+            padding: 10px 15px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        #input-recherche {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #eee;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #input-recherche:focus {
+            border-color: #C0392B;
+        }
+
+        #suggestions {
+            position: absolute;
+            top: 55px;
+            left: 15px;
+            right: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95rem;
+        }
+
+        .suggestion-item:hover {
+            background: #f9f9f9;
+            color: #C0392B;
+        }
+
+        .pres-de-moi {
+            padding: 8px 15px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        #btn-pres {
+            width: 100%;
+            padding: 8px;
+            background: white;
+            border: 2px solid #C0392B;
+            border-radius: 20px;
+            color: #C0392B;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        #btn-pres:hover {
+            background: #C0392B;
+            color: white;
+        }
+        .navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: white;
-    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 999;
 }
 
-#input-recherche {
-    width: 100%;
-    padding: 10px 15px;
-    border: 2px solid #eee;
-    border-radius: 25px;
-    font-size: 1rem;
-    outline: none;
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #999;
+    font-size: 0.7rem;
+    gap: 2px;
 }
 
-#input-recherche:focus {
-    border-color: #C0392B;
+.nav-item span {
+    font-size: 1.3rem;
 }
 
-#suggestions {
-    position: absolute;
-    top: 55px;
-    left: 15px;
-    right: 15px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
-
-.suggestion-item {
-    padding: 12px 15px;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 0.95rem;
-}
-
-.suggestion-item:hover {
-    background: #f9f9f9;
+.nav-item.active {
     color: #C0392B;
 }
     </style>
 </head>
+<nav class="navbar">
+    <a href="index.html" class="nav-item" id="nav-accueil">
+        <span>🏠</span>
+        <small>Accueil</small>
+    </a>
+    <a href="map.html" class="nav-item" id="nav-carte">
+        <span>🗺️</span>
+        <small>Carte</small>
+    </a>
+    <a href="favoris.html" class="nav-item" id="nav-favoris">
+        <span>❤️</span>
+        <small>Favoris</small>
+    </a>
+    <a href="about.html" class="nav-item" id="nav-about">
+        <span>ℹ️</span>
+        <small>À propos</small>
+    </a>
+</nav>
 <body>
 
     <header>
-        
-    <a href="index.html" id="btn-accueil">← Accueil</a>
-    <h1>Turath | تراث</h1>
-    <a href="favoris.html" id="btn-favoris">❤️</a>
-    
-</header> 
+        <a href="index.html" id="btn-accueil">← Accueil</a>
+        <h1>Turath | تراث</h1>
+        <a href="favoris.html" id="btn-favoris">❤️</a>
+    </header>
 
- <div class="filtres">
-    <button class="filtre-btn active" id="btn-tous" onclick="filtrer('tous', this)">Tous</button>
-    <button class="filtre-btn" id="btn-carthaginois" onclick="filtrer('carthaginois', this)">Carthaginois</button>
-    <button class="filtre-btn" id="btn-romain" onclick="filtrer('romain', this)">Romains</button>
-    <button class="filtre-btn" id="btn-islamique" onclick="filtrer('islamique', this)">Islamique</button>
-    <button class="filtre-btn" id="btn-ottoman" onclick="filtrer('ottoman', this)">Ottoman</button>
-</div>
+    <div class="filtres">
+        <button class="filtre-btn active" id="btn-tous" onclick="filtrer('tous', this)">Tous</button>
+        <button class="filtre-btn" id="btn-carthaginois" onclick="filtrer('carthaginois', this)">Carthaginois</button>
+        <button class="filtre-btn" id="btn-romain" onclick="filtrer('romain', this)">Romains</button>
+        <button class="filtre-btn" id="btn-islamique" onclick="filtrer('islamique', this)">Islamique</button>
+        <button class="filtre-btn" id="btn-ottoman" onclick="filtrer('ottoman', this)">Ottoman</button>
+    </div>
 
-<div class="legende">
-    <div class="legende-item"><span class="cercle" style="background:purple"></span> <span id="leg-carthaginois">Carthaginois</span></div>
-    <div class="legende-item"><span class="cercle" style="background:orange"></span> <span id="leg-romain">Romains</span></div>
-    <div class="legende-item"><span class="cercle" style="background:green"></span> <span id="leg-islamique">Islamique</span></div>
-    <div class="legende-item"><span class="cercle" style="background:blue"></span> <span id="leg-ottoman">Ottoman</span></div>
-</div>
+    <div class="pres-de-moi">
+        <button onclick="trouverPres()" id="btn-pres">
+            📍 Monuments près de moi
+        </button>
+    </div>
 
-<div class="recherche">
-    <input 
-        type="text" 
-        id="input-recherche" 
-        placeholder="🔍 Rechercher un monument..."
-        oninput="rechercherMonument()"
-    />
-    <div id="suggestions"></div>
-</div>
+    <div class="legende">
+        <div class="legende-item"><span class="cercle" style="background:purple"></span> <span id="leg-carthaginois">Carthaginois</span></div>
+        <div class="legende-item"><span class="cercle" style="background:orange"></span> <span id="leg-romain">Romains</span></div>
+        <div class="legende-item"><span class="cercle" style="background:green"></span> <span id="leg-islamique">Islamique</span></div>
+        <div class="legende-item"><span class="cercle" style="background:blue"></span> <span id="leg-ottoman">Ottoman</span></div>
+    </div>
+
+    <div class="recherche">
+        <input
+            type="text"
+            id="input-recherche"
+            placeholder="🔍 Rechercher un monument..."
+            oninput="rechercherMonument()"
+        />
+        <div id="suggestions"></div>
+    </div>
 
     <div id="map"></div>
+
+    <div id="pres-resultat" style="display:none; position:fixed; bottom:0; left:0; right:0; background:white; padding:15px; box-shadow:0 -4px 15px rgba(0,0,0,0.1); z-index:1000;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <b id="titre-pres">📍 Les 3 plus proches</b>
+            <span onclick="document.getElementById('pres-resultat').style.display='none'" style="cursor:pointer; color:#C0392B;">✕</span>
+        </div>
+        <div id="liste-pres"></div>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const map = L.map('map').setView([34.0, 9.0], 6);
+
         // Lire la langue
-const langue = localStorage.getItem('langue') || 'fr';
+        const langue = localStorage.getItem('langue') || 'fr';
 
-// Traductions des filtres
-const traductions = {
-    fr: {
-        tous: 'Tous',
-        carthaginois: 'Carthaginois',
-        romain: 'Romains',
-        islamique: 'Islamique',
-        ottoman: 'Ottoman',
-        voirFiche: 'Voir la fiche →'
-    },
-    en: {
-        tous: 'All',
-        carthaginois: 'Carthaginian',
-        romain: 'Roman',
-        islamique: 'Islamic',
-        ottoman: 'Ottoman',
-        voirFiche: 'See details →'
-    },
-    ar: {
-        tous: 'الكل',
-        carthaginois: 'قرطاجي',
-        romain: 'روماني',
-        islamique: 'إسلامي',
-        ottoman: 'عثماني',
-        voirFiche: 'عرض التفاصيل ←'
-    }
-};
+        // Traductions
+        const traductions = {
+            fr: {
+                tous: 'Tous',
+                carthaginois: 'Carthaginois',
+                romain: 'Romains',
+                islamique: 'Islamique',
+                ottoman: 'Ottoman',
+                voirFiche: 'Voir la fiche →',
+                presDesMoi: '📍 Monuments près de moi',
+                localisation: '⏳ Localisation en cours...',
+                gpsNon: '❌ GPS non supporté',
+                refuse: '❌ Position refusée',
+                vousIci: '📍 Vous êtes ici',
+                lesPlusProches: '📍 Les 3 plus proches',
+                kmDuPlusPoche: 'km du plus proche',
+                recherche: '🔍 Rechercher un monument...'
+            },
+            en: {
+                tous: 'All',
+                carthaginois: 'Carthaginian',
+                romain: 'Roman',
+                islamique: 'Islamic',
+                ottoman: 'Ottoman',
+                voirFiche: 'See details →',
+                presDesMoi: '📍 Monuments near me',
+                localisation: '⏳ Locating...',
+                gpsNon: '❌ GPS not supported',
+                refuse: '❌ Location denied',
+                vousIci: '📍 You are here',
+                lesPlusProches: '📍 The 3 nearest',
+                kmDuPlusPoche: 'km from nearest',
+                recherche: '🔍 Search a monument...'
+            },
+            ar: {
+                tous: 'الكل',
+                carthaginois: 'قرطاجي',
+                romain: 'روماني',
+                islamique: 'إسلامي',
+                ottoman: 'عثماني',
+                voirFiche: 'عرض التفاصيل ←',
+                presDesMoi: '📍 المعالم القريبة مني',
+                localisation: '⏳ جارٍ تحديد الموقع...',
+                gpsNon: '❌ GPS غير مدعوم',
+                refuse: '❌ تم رفض الموقع',
+                vousIci: '📍 أنت هنا',
+                lesPlusProches: '📍 أقرب 3 معالم',
+                kmDuPlusPoche: 'كم من الأقرب',
+                recherche: '🔍 ابحث عن معلم...'
+            }
+        };
 
-const t = traductions[langue] || traductions['fr'];
- 
-// Traduire header et légende
-document.getElementById('btn-accueil').textContent = langue === 'ar' ? '→ الرئيسية' : langue === 'en' ? '← Home' : '← Accueil';
-document.getElementById('btn-tous').textContent = t.tous;
-document.getElementById('btn-carthaginois').textContent = t.carthaginois;
-document.getElementById('btn-romain').textContent = t.romain;
-document.getElementById('btn-islamique').textContent = t.islamique;
-document.getElementById('btn-ottoman').textContent = t.ottoman;
-document.getElementById('leg-carthaginois').textContent = t.carthaginois;
-document.getElementById('leg-romain').textContent = t.romain;
-document.getElementById('leg-islamique').textContent = t.islamique;
-document.getElementById('leg-ottoman').textContent = t.ottoman;
+        const t = traductions[langue] || traductions['fr'];
 
-// Si arabe → direction droite à gauche
-if (langue === 'ar') {
-    document.body.style.direction = 'rtl';
-}
+        // Traduire header et légende
+        document.getElementById('btn-accueil').textContent = langue === 'ar' ? '→ الرئيسية' : langue === 'en' ? '← Home' : '← Accueil';
+        document.getElementById('btn-tous').textContent = t.tous;
+        document.getElementById('btn-carthaginois').textContent = t.carthaginois;
+        document.getElementById('btn-romain').textContent = t.romain;
+        document.getElementById('btn-islamique').textContent = t.islamique;
+        document.getElementById('btn-ottoman').textContent = t.ottoman;
+        document.getElementById('leg-carthaginois').textContent = t.carthaginois;
+        document.getElementById('leg-romain').textContent = t.romain;
+        document.getElementById('leg-islamique').textContent = t.islamique;
+        document.getElementById('leg-ottoman').textContent = t.ottoman;
+        document.getElementById('btn-pres').textContent = t.presDesMoi;
+        document.getElementById('input-recherche').placeholder = t.recherche;
 
-// Traduire les boutons filtres
-document.querySelector('[onclick="filtrer(\'tous\', this)"]').textContent = t.tous;
-document.querySelector('[onclick="filtrer(\'carthaginois\', this)"]').textContent = t.carthaginois;
-document.querySelector('[onclick="filtrer(\'romain\', this)"]').textContent = t.romain;
-document.querySelector('[onclick="filtrer(\'islamique\', this)"]').textContent = t.islamique;
-document.querySelector('[onclick="filtrer(\'ottoman\', this)"]').textContent = t.ottoman;
+        if (langue === 'ar') document.body.style.direction = 'rtl';
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-      const sites = [
-    {
-        nom: "Amphithéâtre de Carthage",
-        nomAr: "مدرج قرطاج",
-        nomEn: "Carthage Amphitheatre",
-        ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
-        epoque: "carthaginois",
-        epoqueLabel: "Carthaginois", epoqueLabelAr: "قرطاجي", epoqueLabelEn: "Carthaginian",
-        lat: 36.8528, lng: 10.3233
-    },
-    {
-        nom: "Amphithéâtre d'El Jem",
-        nomAr: "مدرج الجم",
-        nomEn: "El Jem Amphitheatre",
-        ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
-        epoque: "romain",
-        epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",
-        lat: 35.2969, lng: 10.7073
-    },
-    {
-        nom: "Grande Mosquée de Kairouan",
-        nomAr: "جامع القيروان الكبير",
-        nomEn: "Great Mosque of Kairouan",
-        ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
-        epoque: "islamique",
-        epoqueLabel: "Islamique", epoqueLabelAr: "إسلامي", epoqueLabelEn: "Islamic",
-        lat: 35.6781, lng: 10.0963
-    },
-    {
-        nom: "Ribat de Monastir",
-        nomAr: "رباط المنستير",
-        nomEn: "Ribat of Monastir",
-        ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
-        epoque: "islamique",
-        epoqueLabel: "Islamique", epoqueLabelAr: "إسلامي", epoqueLabelEn: "Islamic",
-        lat: 35.7697, lng: 10.8262
-    },
-    {
-        nom: "Théâtre romain de Dougga",
-        nomAr: "المسرح الروماني بدقة",
-        nomEn: "Roman Theatre of Dougga",
-        ville: "Béja", villeAr: "باجة", villeEn: "Béja",
-        epoque: "romain",
-        epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",
-        lat: 36.4228, lng: 9.2194
-    }
-];
+        const sites = [
+            {
+                nom: "Amphithéâtre de Carthage",
+                nomAr: "مدرج قرطاج",
+                nomEn: "Carthage Amphitheatre",
+                ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
+                epoque: "romain",
+                epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",                lat: 36.8528, lng: 10.3233
+            },
+            {
+                nom: "Amphithéâtre d'El Jem",
+                nomAr: "مدرج الجم",
+                nomEn: "El Jem Amphitheatre",
+                ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
+                epoque: "romain",
+                epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",
+                lat: 35.2969, lng: 10.7073
+            },
+            {
+                nom: "Grande Mosquée de Kairouan",
+                nomAr: "جامع القيروان الكبير",
+                nomEn: "Great Mosque of Kairouan",
+                ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
+                epoque: "islamique",
+                epoqueLabel: "Islamique", epoqueLabelAr: "إسلامي", epoqueLabelEn: "Islamic",
+                lat: 35.6781, lng: 10.0963
+            },
+            {
+                nom: "Ribat de Monastir",
+                nomAr: "رباط المنستير",
+                nomEn: "Ribat of Monastir",
+                ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
+                epoque: "islamique",
+                epoqueLabel: "Islamique", epoqueLabelAr: "إسلامي", epoqueLabelEn: "Islamic",
+                lat: 35.7697, lng: 10.8262
+            },
+            {
+                nom: "Théâtre romain de Dougga",
+                nomAr: "المسرح الروماني بدقة",
+                nomEn: "Roman Theatre of Dougga",
+                ville: "Béja", villeAr: "باجة", villeEn: "Béja",
+                epoque: "romain",
+                epoqueLabel: "Romain", epoqueLabelAr: "روماني", epoqueLabelEn: "Roman",
+                lat: 36.4228, lng: 9.2194
+            }
+        ];
 
         const couleurs = {
             carthaginois: "purple",
@@ -290,26 +388,27 @@ document.querySelector('[onclick="filtrer(\'ottoman\', this)"]').textContent = t
                 fillOpacity: 0.9
             }).addTo(map);
 
-const nomAffiche = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
-const villeAffiche = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
-const epoqueAffiche = langue === 'ar' ? site.epoqueLabelAr : langue === 'en' ? site.epoqueLabelEn : site.epoqueLabel;
+            const nomAffiche = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+            const villeAffiche = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
+            const epoqueAffiche = langue === 'ar' ? site.epoqueLabelAr : langue === 'en' ? site.epoqueLabelEn : site.epoqueLabel;
 
-marqueur.bindPopup(`
-    <b>${nomAffiche}</b><br>
-    📍 ${villeAffiche}<br>
-    🏛️ ${epoqueAffiche}<br>
-    <a href="site.html?nom=${encodeURIComponent(site.nom)}" 
-    style="color:#C0392B; font-weight:bold;">
-    ${t.voirFiche}</a>
-`);
+            marqueur.bindPopup(`
+                <b>${nomAffiche}</b><br>
+                📍 ${villeAffiche}<br>
+                🏛️ ${epoqueAffiche}<br>
+                <a href="site.html?nom=${encodeURIComponent(site.nom)}"
+                style="color:#C0392B; font-weight:bold;">
+                ${t.voirFiche}</a>
+            `);
+
             marqueur.epoque = site.epoque;
+            marqueur.site = site;
             marqueurs.push(marqueur);
         });
 
         function filtrer(epoque, btn) {
             document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             marqueurs.forEach(m => {
                 if (epoque === 'tous' || m.epoque === epoque) {
                     m.addTo(map);
@@ -320,53 +419,126 @@ marqueur.bindPopup(`
         }
 
         function rechercherMonument() {
-    const input = document.getElementById('input-recherche').value.toLowerCase();
-    const suggestions = document.getElementById('suggestions');
-    suggestions.innerHTML = '';
+            const input = document.getElementById('input-recherche').value.toLowerCase();
+            const suggestions = document.getElementById('suggestions');
+            suggestions.innerHTML = '';
+            if (input.length < 2) return;
 
-    if (input.length < 2) return;
-
-    const resultats = sites.filter(site => {
-        const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
-        return nom.toLowerCase().includes(input);
-    });
-
-    resultats.forEach(site => {
-        const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
-        const ville = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
-
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
-        div.textContent = nom + ' — ' + ville;
-
-        div.onclick = () => {
-            // Zoomer sur le monument
-            map.setView([site.lat, site.lng], 13);
-
-            // Ouvrir le popup du marqueur
-            marqueurs.forEach(m => {
-                if (m.epoque === site.epoque && 
-                    m.getLatLng().lat === site.lat) {
-                    m.openPopup();
-                }
+            const resultats = sites.filter(site => {
+                const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+                return nom.toLowerCase().includes(input);
             });
 
-            // Vider la barre
-            document.getElementById('input-recherche').value = nom;
-            suggestions.innerHTML = '';
-        };
+            resultats.forEach(site => {
+                const nom = langue === 'ar' ? site.nomAr : langue === 'en' ? site.nomEn : site.nom;
+                const ville = langue === 'ar' ? site.villeAr : langue === 'en' ? site.villeEn : site.ville;
 
-        suggestions.appendChild(div);
-    });
-}
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = nom + ' — ' + ville;
 
-// Fermer suggestions si on clique ailleurs
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.recherche')) {
-        document.getElementById('suggestions').innerHTML = '';
-    }
-});
+                div.onclick = () => {
+                    map.setView([site.lat, site.lng], 13);
+                    marqueurs.forEach(m => {
+                        if (m.site.nom === site.nom) m.openPopup();
+                    });
+                    document.getElementById('input-recherche').value = nom;
+                    suggestions.innerHTML = '';
+                };
+
+                suggestions.appendChild(div);
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.recherche')) {
+                document.getElementById('suggestions').innerHTML = '';
+            }
+        });
+
+        function trouverPres() {
+            const btn = document.getElementById('btn-pres');
+            btn.textContent = t.localisation;
+
+            if (!navigator.geolocation) {
+                btn.textContent = t.gpsNon;
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+
+                    const sitesAvecDistance = sites.map(site => {
+                        const distance = calculerDistance(userLat, userLng, site.lat, site.lng);
+                        return { ...site, distance };
+                    });
+
+                    sitesAvecDistance.sort((a, b) => a.distance - b.distance);
+                    const lesPlusProches = sitesAvecDistance.slice(0, 3);
+
+                    map.setView([userLat, userLng], 8);
+
+                    L.circleMarker([userLat, userLng], {
+                        radius: 12,
+                        fillColor: '#3498db',
+                        color: 'white',
+                        weight: 2,
+                        fillOpacity: 0.9
+                    }).addTo(map).bindPopup(t.vousIci).openPopup();
+
+                    const resultat = document.getElementById('pres-resultat');
+                    const liste = document.getElementById('liste-pres');
+                    liste.innerHTML = '';
+                    resultat.style.display = 'block';
+                    document.getElementById('titre-pres').textContent = t.lesPlusProches;
+
+                    lesPlusProches.forEach((siteProche, index) => {
+                        const nom = langue === 'ar' ? siteProche.nomAr : langue === 'en' ? siteProche.nomEn : siteProche.nom;
+                        const ville = langue === 'ar' ? siteProche.villeAr : langue === 'en' ? siteProche.villeEn : siteProche.ville;
+                        const medals = ['🥇', '🥈', '🥉'];
+
+                        const div = document.createElement('div');
+                        div.style = 'padding:8px 0; border-bottom:1px solid #eee; cursor:pointer;';
+                        div.innerHTML = `
+                            ${medals[index]} <b>${nom}</b> — 📍 ${ville} — 🚗 ${siteProche.distance.toFixed(0)} km
+                            <a href="site.html?nom=${encodeURIComponent(siteProche.nom)}"
+                            style="color:#C0392B; font-size:0.85rem; margin-left:5px;">
+                            ${t.voirFiche}</a>
+                        `;
+                        liste.appendChild(div);
+                    });
+
+                    btn.textContent = `📍 ${lesPlusProches[0].distance.toFixed(0)} ${t.kmDuPlusPoche}`;
+                },
+                () => {
+                    btn.textContent = t.refuse;
+                }
+            );
+        }
+
+        function calculerDistance(lat1, lng1, lat2, lng2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLng = (lng2 - lng1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLng/2) * Math.sin(dLng/2);
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        }
+        // Traduire la navbar
+const navTexts = {
+    fr: { accueil: 'Accueil', carte: 'Carte', favoris: 'Favoris', about: 'À propos' },
+    en: { accueil: 'Home', carte: 'Map', favoris: 'Favourites', about: 'About' },
+    ar: { accueil: 'الرئيسية', carte: 'الخريطة', favoris: 'المفضلة', about: 'حول' }
+}[langue] || { accueil: 'Accueil', carte: 'Carte', favoris: 'Favoris', about: 'À propos' };
+
+document.querySelector('#nav-accueil small').textContent = navTexts.accueil;
+document.querySelector('#nav-carte small').textContent = navTexts.carte;
+document.querySelector('#nav-favoris small').textContent = navTexts.favoris;
+document.querySelector('#nav-about small').textContent = navTexts.about;
     </script>
 
 </body>
-</html> 
+</html>

@@ -76,6 +76,35 @@ background-image: url('images/accueil.jpg');            background-size: cover;
             cursor: pointer;
             color: #C9A84C;
         }
+       .navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+background: rgba(255, 255, 255, 0.2);    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    z-index: 999;
+    backdrop-filter: blur(8px);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    gap: 2px;
+}
+
+.nav-item span {
+    font-size: 1.3rem;
+}
+
+.nav-item.active {
+    color: #C9A84C;
+}
     </style>
 </head>
 <script>
@@ -87,7 +116,40 @@ background-image: url('images/accueil.jpg');            background-size: cover;
 
 // Au chargement → toujours remettre français par défaut
 localStorage.setItem('langue', 'fr');
+// Traduire la navbar
+const navTexts = {
+    fr: { accueil: 'Accueil', carte: 'Carte', favoris: 'Favoris', about: 'À propos' },
+    en: { accueil: 'Home', carte: 'Map', favoris: 'Favourites', about: 'About' },
+    ar: { accueil: 'الرئيسية', carte: 'الخريطة', favoris: 'المفضلة', about: 'حول' }
+}[langue] || { accueil: 'Accueil', carte: 'Carte', favoris: 'Favoris', about: 'À propos' };
+
+document.querySelector('#nav-accueil small').textContent = navTexts.accueil;
+document.querySelector('#nav-carte small').textContent = navTexts.carte;
+document.querySelector('#nav-favoris small').textContent = navTexts.favoris;
+document.querySelector('#nav-about small').textContent = navTexts.about;
 </script>
+
+
+
+
+<nav class="navbar">
+    <a href="index.html" class="nav-item" id="nav-accueil">
+        <span>🏠</span>
+        <small>Accueil</small>
+    </a>
+    <a href="map.html" class="nav-item" id="nav-carte">
+        <span>🗺️</span>
+        <small>Carte</small>
+    </a>
+    <a href="favoris.html" class="nav-item" id="nav-favoris">
+        <span>❤️</span>
+        <small>Favoris</small>
+    </a>
+    <a href="about.html" class="nav-item" id="nav-about">
+        <span>ℹ️</span>
+        <small>À propos</small>
+    </a>
+</nav>
 <body>
 
     <div class="overlay">

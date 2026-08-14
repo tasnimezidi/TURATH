@@ -38,6 +38,7 @@
 
         .contenu {
             padding: 20px;
+             padding-bottom: 80px;
         }
 
         .nom {
@@ -101,8 +102,56 @@
         .btn-favori.active {
             background: #922b21;
         }
+        .navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #999;
+    font-size: 0.7rem;
+    gap: 2px;
+}
+
+.nav-item span {
+    font-size: 1.3rem;
+}
+
+.nav-item.active {
+    color: #C0392B;
+}
     </style>
 </head>
+<nav class="navbar">
+    <a href="index.html" class="nav-item" id="nav-accueil">
+        <span>🏠</span>
+        <small>Accueil</small>
+    </a>
+    <a href="map.html" class="nav-item" id="nav-carte">
+        <span>🗺️</span>
+        <small>Carte</small>
+    </a>
+    <a href="favoris.html" class="nav-item" id="nav-favoris">
+        <span>❤️</span>
+        <small>Favoris</small>
+    </a>
+    <a href="about.html" class="nav-item" id="nav-about">
+        <span>ℹ️</span>
+        <small>À propos</small>
+    </a>
+</nav>
 <body>
 
     <header>
@@ -135,71 +184,70 @@
 
     <script>
         const sites = [
+          {
+    nom: "Amphithéâtre de Carthage",
+    nomArabe: "مدرج قرطاج",
+    nomEn: "Carthage Amphitheatre",
+    ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
+    epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
+    siecle: "Ier - IIe siècle", siecleAr: "القرن الأول - الثاني", siecleEn: "1st - 2nd century",
+    photo: "images/carthage.jpg",
+    photoPosition: "center center",
+    description: "L'amphithéâtre de Carthage est un amphithéâtre romain construit à la fin du Ier siècle ou au début du IIe siècle après J.-C., à l'ouest de la colline de Byrsa. Il était en service dès 133-139 ap. J.-C. et fut agrandi au IIIe siècle. Son arène mesure 64,66 mètres sur 36,70 mètres, entourée d'un podium de 2,5 mètres de hauteur reposant sur 54 travées. Sa capacité est estimée à 30 000 spectateurs. C'est l'un des trois amphithéâtres africains construits sur terrain plat, avec El Jem et Thapsus. Au Moyen Âge, il suscitait l'admiration des voyageurs arabes comme Al-Bakri et Al-Idrissi, qui décrivaient ses arches imposantes et ses sculptures remarquables. Classé au patrimoine mondial de l'UNESCO depuis 1979.",
+    descriptionArabe: "مدرج قرطاج أثر روماني بُني في نهاية القرن الأول أو مطلع القرن الثاني الميلادي، غرب تلة بيرصا. كان في الخدمة منذ عامَي 133-139م وتوسَّع في القرن الثالث. تبلغ مساحة حلبته 64.66 متراً في 36.70 متراً، محاطةً بمنصة ترتكز على 54 قنطرة، وتستوعب ما يصل إلى 30 ألف متفرج. يُعدّ من بين ثلاثة مدرجات أفريقية فقط بُنيت على أرض مستوية، إلى جانب الجم وثابسوس. أثار إعجاب الرحالة العرب في العصور الوسطى كالبكري والإدريسي بأقواسه الشاهقة ومنحوتاته البديعة. مصنف ضمن التراث العالمي لليونسكو منذ 1979.",
+    descriptionEn: "The Carthage Amphitheatre is a Roman amphitheatre built at the end of the 1st century or beginning of the 2nd century AD, west of the hill of Byrsa. It was in service from 133–139 AD and expanded during the 3rd century. Its arena measures 64.66 by 36.70 metres, surrounded by a podium resting on 54 spans, with an estimated capacity of 30,000 spectators. One of only three African amphitheatres built on flat ground, alongside El Jem and Thapsus. During the Middle Ages, Arab travelers Al-Bakri and Al-Idrissi admired its impressive arches and remarkable sculptures. UNESCO listed since 1979."
+},{
+    nom: "Amphithéâtre d'El Jem",
+    nomArabe: "مدرج الجم",
+    nomEn: "El Jem Amphitheatre",
+    ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
+    epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
+    siecle: "IIIe siècle", siecleAr: "القرن الثالث", siecleEn: "3rd century",
+    photo: "images/jem.jpg",
+    photoPosition: "center center",
+    description: "L'amphithéâtre d'El Jem est le troisième plus grand amphithéâtre romain du monde, après le Colisée de Rome et l'amphithéâtre de Capoue. Construit vers 238 ap. J.-C. sous le règne de l'empereur Gordien Ier, il pouvait accueillir jusqu'à 35 000 spectateurs pour des combats de gladiateurs et des chasses aux animaux sauvages. Son ellipse extérieure mesure 148 mètres sur 122 mètres, et ses murs atteignent 36 mètres de hauteur. Contrairement à la plupart des amphithéâtres romains, il fut construit entièrement sur terrain plat sans appui sur une colline naturelle. Il est l'un des monuments romains les mieux conservés du monde et a servi de forteresse au cours des siècles suivants. Classé au patrimoine mondial de l'UNESCO depuis 1979.",
+    descriptionArabe: "مدرج الجم ثالث أكبر مدرج روماني في العالم، بعد الكولوسيوم في روما ومدرج كابوا. شُيِّد نحو عام 238 ميلادي في عهد الإمبراطور غورديانوس الأول، وكان يستوعب ما يصل إلى 35 ألف متفرج لمشاهدة مبارزات المصارعين وصيد الحيوانات البرية. يبلغ طول محيطه الخارجي 148 متراً في 122 متراً، وترتفع جدرانه إلى 36 متراً. وعلى خلاف معظم المدرجات الرومانية، بُني كلياً على أرض مستوية دون الاستناد إلى تل طبيعي. يُعدّ من أفضل الآثار الرومانية المحفوظة في العالم، واستُخدم قلعة في القرون اللاحقة. مصنف ضمن التراث العالمي لليونسكو منذ 1979.",
+    descriptionEn: "The El Jem Amphitheatre is the third largest Roman amphitheatre in the world, after the Colosseum in Rome and the amphitheatre of Capua. Built around 238 AD under Emperor Gordian I, it could hold up to 35,000 spectators for gladiatorial combats and wild animal hunts. Its outer ellipse measures 148 by 122 metres, with walls reaching 36 metres in height. Unlike most Roman amphitheatres, it was built entirely on flat ground without relying on a natural hillside. It is one of the best-preserved Roman monuments in the world and served as a fortress in subsequent centuries. UNESCO listed since 1979."
+},
+          {
+    nom: "Grande Mosquée de Kairouan",
+    nomArabe: "جامع القيروان الكبير",
+    nomEn: "Great Mosque of Kairouan",
+    ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
+    epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
+    siecle: "VIIe siècle", siecleAr: "القرن السابع", siecleEn: "7th century",
+    photo: "images/kairouan.jpg",
+    photoPosition: "center top",
+    description: "La Grande Mosquée de Kairouan, également connue sous le nom de Mosquée d'Uqba, est l'une des plus grandes et des plus anciennes mosquées du monde islamique. Fondée en 670 ap. J.-C. par le général arabe Uqba ibn Nafi lors de la conquête islamique du Maghreb, elle fut reconstruite et agrandie à plusieurs reprises, notamment sous les Aghlabides au IXe siècle. Elle est considérée comme le quatrième lieu saint de l'Islam après La Mecque, Médine et Jérusalem. La mosquée abrite l'un des plus anciens minbars en bois sculpté du monde islamique, datant du IXe siècle. Son minaret à trois niveaux est l'un des plus anciens du monde. Classée au patrimoine mondial de l'UNESCO, elle a profondément influencé l'architecture islamique en Afrique du Nord et en Andalousie.",
+    descriptionArabe: "الجامع الكبير بالقيروان، المعروف أيضاً بجامع عقبة، من أعظم المساجد وأقدمها في العالم الإسلامي. أسسه القائد العربي عقبة بن نافع عام 670م إبان الفتح الإسلامي للمغرب، وأُعيد بناؤه وتوسيعه مرات عدة، لا سيما في عهد الأغالبة في القرن التاسع الميلادي. يُعدّ رابع أقدس مكان في الإسلام بعد مكة المكرمة والمدينة المنورة والقدس الشريف. يضم المسجد من أقدم المنابر المنحوتة في الخشب في العالم الإسلامي، يعود للقرن التاسع الميلادي. مئذنته ذات الطوابق الثلاثة من أقدم المآذن في العالم. مصنف ضمن التراث العالمي لليونسكو، وقد أثّر تأثيراً عميقاً في العمارة الإسلامية في شمال أفريقيا والأندلس.",
+    descriptionEn: "The Great Mosque of Kairouan, also known as the Mosque of Uqba, is one of the greatest and oldest mosques in the Islamic world. Founded in 670 AD by Arab general Uqba ibn Nafi during the Islamic conquest of the Maghreb, it was rebuilt and expanded several times, notably under the Aghlabids in the 9th century. It is considered the fourth holiest site in Islam after Mecca, Medina and Jerusalem. The mosque houses one of the oldest carved wooden minbars in the Islamic world, dating from the 9th century. Its three-tiered minaret is one of the oldest in the world. UNESCO listed, it has profoundly influenced Islamic architecture across North Africa and Andalusia."
+},
+           {
+    nom: "Ribat de Monastir",
+    nomArabe: "رباط المنستير",
+    nomEn: "Ribat of Monastir",
+    ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
+    epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
+    siecle: "VIIIe siècle", siecleAr: "القرن الثامن", siecleEn: "8th century",
+    photo: "images/Ribat.jpg",
+    photoPosition: "center center",
+    description: "Le Ribat de Monastir est l'une des plus anciennes forteresses islamiques du Maghreb, fondée vers 796 ap. J.-C. par Harthama ibn A'yan sous la dynastie abbasside. Construit sur le bord de la mer Méditerranée, il servait à la fois de forteresse défensive et de centre de retraite spirituelle pour les moines-guerriers appelés Mourabitoun. La tour de guet principale, haute de 30 mètres, permettait de surveiller la côte et de signaler les menaces ennemies. Le Ribat fut agrandi et renforcé à plusieurs reprises aux IXe et Xe siècles. Il est considéré comme l'un des monuments islamiques les mieux conservés de Tunisie.",
+    descriptionArabe: "رباط المنستير من أقدم الحصون الإسلامية في المغرب العربي، أسسه هرثمة بن أعيَن نحو عام 796م في عهد الدولة العباسية. شُيِّد على ساحل البحر الأبيض المتوسط ليكون حصناً دفاعياً ومركزاً للمرابطين الذين يجمعون بين الجهاد والعبادة. يبلغ ارتفاع برج المراقبة الرئيسي 30 متراً، وكان يُستخدم لرصد الساحل وتحذير السكان من هجمات العدو. وُسِّع الرباط وعُزِّز في القرنين التاسع والعاشر الميلاديين. يُعدّ من أجمل المعالم الإسلامية المحفوظة في تونس.",
+    descriptionEn: "The Ribat of Monastir is one of the oldest Islamic fortresses in the Maghreb, founded around 796 AD by Harthama ibn A'yan under the Abbasid dynasty. Built on the Mediterranean coast, it served both as a defensive fortress and a spiritual retreat for warrior-monks known as Mourabitoun. Its main watchtower, standing 30 metres high, was used to monitor the coastline and warn of enemy threats. The Ribat was expanded and reinforced several times during the 9th and 10th centuries. It is considered one of the best-preserved Islamic monuments in Tunisia."
+},
             {
-                nom: "Amphithéâtre de Carthage",
-                nomArabe: "مدرج قرطاج",
-                nomEn: "Carthage Amphitheatre",
-                ville: "Tunis", villeAr: "تونس", villeEn: "Tunis",
-                epoque: "Carthaginois", epoqueAr: "قرطاجي", epoqueEn: "Carthaginian",
-                siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
-                photo: "images/carthage.jpg",
-                photoPosition: "center center",
-                description: "L'amphithéâtre de Carthage est un vestige romain situé dans la ville antique de Carthage. Construit au IIe siècle, il pouvait accueillir jusqu'à 36 000 spectateurs.",
-                descriptionArabe: "مدرج قرطاج أثر روماني يعود للقرن الثاني الميلادي، كان يستوعب 36 ألف متفرج لمشاهدة العروض ومبارزات المصارعين.",
-                descriptionEn: "The Carthage Amphitheatre is a Roman ruin located in the ancient city of Carthage. Built in the 2nd century, it could accommodate up to 36,000 spectators."
-            },
-            {
-                nom: "Amphithéâtre d'El Jem",
-                nomArabe: "مدرج الجم",
-                nomEn: "El Jem Amphitheatre",
-                ville: "Mahdia", villeAr: "المهدية", villeEn: "Mahdia",
-                epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
-                siecle: "IIIe siècle", siecleAr: "القرن الثالث", siecleEn: "3rd century",
-                photo: "images/jem.jpg",
-                photoPosition: "center center",
-                description: "L'amphithéâtre d'El Jem est l'un des mieux conservés au monde. Construit au IIIe siècle, il pouvait accueillir 35 000 spectateurs. Classé UNESCO depuis 1979.",
-                descriptionArabe: "مدرج الجم من أفضل المدرجات المحفوظة في العالم، بني في القرن الثالث الميلادي واستوعب 35 ألف متفرج. مصنف ضمن تراث اليونسكو منذ 1979.",
-                descriptionEn: "The El Jem Amphitheatre is one of the best preserved in the world. Built in the 3rd century, it could hold 35,000 spectators. UNESCO listed since 1979."
-            },
-            {
-                nom: "Grande Mosquée de Kairouan",
-                nomArabe: "جامع القيروان الكبير",
-                nomEn: "Great Mosque of Kairouan",
-                ville: "Kairouan", villeAr: "القيروان", villeEn: "Kairouan",
-                epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
-                siecle: "VIIe siècle", siecleAr: "القرن السابع", siecleEn: "7th century",
-                photo: "images/kairouan.jpg",
-                photoPosition: "center top",
-                description: "La Grande Mosquée de Kairouan est l'une des plus anciennes mosquées d'Afrique, fondée en 670 ap. J.-C. par Uqba ibn Nafi. Quatrième lieu saint de l'Islam.",
-                descriptionArabe: "جامع القيروان الكبير من أعرق المساجد في أفريقيا، أسسه عقبة بن نافع عام 670م، ويُعدّ رابع أقدس مكان في الإسلام.",
-                descriptionEn: "The Great Mosque of Kairouan is one of the oldest mosques in Africa, founded in 670 AD by Uqba ibn Nafi. It is the fourth holiest site in Islam."
-            },
-            {
-                nom: "Ribat de Monastir",
-                nomArabe: "رباط المنستير",
-                nomEn: "Ribat of Monastir",
-                ville: "Monastir", villeAr: "المنستير", villeEn: "Monastir",
-                epoque: "Islamique", epoqueAr: "إسلامي", epoqueEn: "Islamic",
-                siecle: "VIIIe siècle", siecleAr: "القرن الثامن", siecleEn: "8th century",
-                photo: "images/Ribat.jpg",
-                photoPosition: "center center",
-                description: "Le Ribat de Monastir est l'un des plus anciens forts musulmans du Maghreb, construit au VIIIe siècle pour protéger la côte tunisienne des invasions.",
-                descriptionArabe: "رباط المنستير من أقدم الحصون الإسلامية في المغرب العربي، بني في القرن الثامن الميلادي لحماية الساحل التونسي من الغزوات.",
-                descriptionEn: "The Ribat of Monastir is one of the oldest Muslim forts in the Maghreb, built in the 8th century to protect the Tunisian coast from invasions."
-            },
-            {
-                nom: "Théâtre romain de Dougga",
-                nomArabe: "المسرح الروماني بدقة",
-                nomEn: "Roman Theatre of Dougga",
-                ville: "Béja", villeAr: "باجة", villeEn: "Béja",
-                epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
-                siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
-                photo: "images/dougga.jpeg",
-                photoPosition: "center bottom",
-                description: "Le théâtre romain de Dougga est l'un des mieux conservés d'Afrique du Nord. Construit au IIe siècle, il pouvait accueillir 3 500 spectateurs. Dougga est classée UNESCO.",
-                descriptionArabe: "المسرح الروماني بدقة من أجمل المسارح الرومانية في شمال أفريقيا، بني في القرن الثاني الميلادي واستوعب 3500 متفرج. دقة مصنفة ضمن تراث اليونسكو.",
-                descriptionEn: "The Roman Theatre of Dougga is one of the best preserved in North Africa. Built in the 2nd century, it held 3,500 spectators. Dougga is UNESCO listed."
-            }
+    nom: "Théâtre romain de Dougga",
+    nomArabe: "مسرح دقة الروماني",
+    nomEn: "Roman Theatre of Dougga",
+    ville: "Béja", villeAr: "باجة", villeEn: "Béja",
+    epoque: "Romain", epoqueAr: "روماني", epoqueEn: "Roman",
+    siecle: "IIe siècle", siecleAr: "القرن الثاني", siecleEn: "2nd century",
+    photo: "images/dougga.jpeg",
+    photoPosition: "center bottom",
+    description: "Le théâtre de Dougga est un théâtre romain remarquablement conservé, construit en 168-169 ap. J.-C. sous le règne de l'empereur Marc Aurèle. Il pouvait accueillir 3 500 spectateurs et s'appuie sur la pente naturelle de la colline. Il fait partie de la ville antique de Dougga (ancienne Thugga), l'une des cités romaines les mieux préservées d'Afrique du Nord, inscrite au patrimoine mondial de l'UNESCO depuis 1997.",
+    descriptionArabe: "مسرح دقة أثر روماني محفوظ بشكل رائع، بُني عام 168-169 ميلادي في عهد الإمبراطور ماركوس أوريليوس. استوعب 3500 متفرج ويعتمد على المنحدر الطبيعي للتل. يقع ضمن مدينة دقة الأثرية (ثوغا القديمة)، إحدى أفضل المدن الرومانية المحفوظة في شمال أفريقيا، المصنفة ضمن التراث العالمي لليونسكو منذ 1997.",
+    descriptionEn: "The Theatre of Dougga is a remarkably well-preserved Roman theatre built in 168-169 AD during the reign of Emperor Marcus Aurelius. It could seat 3,500 spectators and is carved into the hillside, using the natural slope for its seating tiers. It is part of the ancient city of Dougga (ancient Thugga), one of the best-preserved Roman towns in North Africa, inscribed on the UNESCO World Heritage List since 1997."
+},
         ];
 
         // Lire langue et nom
@@ -273,11 +321,22 @@ function toggleFavori() {
 // Vérifier si déjà fl favori
 const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
 if (favoris.includes(nomSite)) {
-    document.getElementById('btn-favori').textContent = txtAjoute;
+    document .getElementById('btn-favori').textContent = txtAjoute;
     document.getElementById('btn-favori').classList.add('active');
 } else {
     document.getElementById('btn-favori').textContent = txtAjouter;
 } 
+// Traduire la navbar
+const navTexts = {
+    fr: { accueil: 'Accueil', carte: 'Carte', favoris: 'Favoris', about: 'À propos' },
+    en: { accueil: 'Home', carte: 'Map', favoris: 'Favourites', about: 'About' },
+    ar: { accueil: 'الرئيسية', carte: 'الخريطة', favoris: 'المفضلة', about: 'حول' }
+}[langue] || { accueil: 'Accueil', carte: 'Carte', favoris: 'Favoris', about: 'À propos' };
+
+document.querySelector('#nav-accueil small').textContent = navTexts.accueil;
+document.querySelector('#nav-carte small').textContent = navTexts.carte;
+document.querySelector('#nav-favoris small').textContent = navTexts.favoris;
+document.querySelector('#nav-about small').textContent = navTexts.about;
     </script>
 
 </body>
